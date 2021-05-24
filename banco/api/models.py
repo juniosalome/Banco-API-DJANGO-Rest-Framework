@@ -6,7 +6,7 @@ from django.db import models
 class Cliente(models.Model):
     nome = models.CharField(max_length=250)
     endereco = models.CharField(max_length=250)
-    codigo = models.CharField(max_length=250,default="", editable=False)
+    codigo = models.CharField(max_length=250)
 
     def json_object(self):
         return {
@@ -19,8 +19,8 @@ class Cliente(models.Model):
         return self.nome
 
 class ClienteGerente(models.Model):
-    codigo = models.CharField(max_length=250,default="", editable=False)
-    codigoCliente = models.ForeignKey('Cliente',on_delete=models.CASCADE)
+    codigo = models.CharField(max_length=250)
+    codigoCliente = models.CharField(max_length=250)
 
     def json_object(self):
         return {
@@ -37,8 +37,8 @@ class Ativo(models.Model):
     nome = models.CharField(max_length=250)
     modalidade = models.CharField(max_length=250)
     dataCriacao = models.CharField(max_length=250)
-    clienteCriador=models.ForeignKey('ClienteGerente',on_delete=models.CASCADE)
-    clienteCliente=models.ForeignKey('Cliente',on_delete=models.CASCADE)
+    clienteCriador=models.CharField(max_length=250)
+    clienteCliente=models.CharField(max_length=250)
 
     def json_object(self):
         return {
@@ -54,8 +54,8 @@ class Ativo(models.Model):
         return self.modalidade
 
 class Transferencia(models.Model):
-    ativo = models.ForeignKey('Ativo',on_delete=models.CASCADE)
-    codigoCliente = models.ForeignKey('Cliente',on_delete=models.CASCADE)
+    ativo = models.CharField(max_length=250)
+    codigoCliente = models.CharField(max_length=250)
     data = models.CharField(max_length=250)
     quantidade = models.FloatField()
     precoUnitario = models.FloatField()
@@ -70,20 +70,30 @@ class Transferencia(models.Model):
         }
 
     def __str__(self):
-        return "Transferencia de ativo {}".format(self.ativo.nome)
+        return "Transferencia de ativo {}".format(self.ativo)
 
 
 class Retirada(models.Model):
     quantidade = models.FloatField()
-    ativo = models.ForeignKey('Ativo',on_delete=models.CASCADE)
+    ativo = models.CharField(max_length=250)
     data = models.CharField(max_length=250)    
     precoUnitario = models.FloatField()
 
 class Deposito(models.Model):
     quantidade = models.FloatField()
-    ativo = models.ForeignKey('Ativo',on_delete=models.CASCADE)
+    ativo = models.CharField(max_length=250)
     data = models.CharField(max_length=250)    
     precoUnitario = models.FloatField()
 
 class Saldo(models.Model):
-    ativo = models.ForeignKey('Ativo',on_delete=models.CASCADE)
+    ativo = models.CharField(max_length=250)
+    saldo = models.FloatField()
+
+    def json_object(self):
+        return {
+            "ativo":self.ativo,
+            "saldo":self.saldo,
+        }
+
+    def __str__(self):
+        return "Transferencia de ativo {}".format(self.saldo)
