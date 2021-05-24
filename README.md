@@ -114,3 +114,16 @@ O saldo da carteira é o somatório de saldos investidos em cada um dos ativos
 ### Comando para migrar os modelos
   `python3 manage.py makemigrations`
   `python3 manage.py migrate`
+  
+### Como mostrar algumas operações
+  `http://127.0.0.1:8000/admin/`
+
+
+### Comando para zerar o a migração de dados
+  `./manage.py migrate api zero`
+  
+### Comando para mostrar a migração de dados
+`./manage.py showmigrations <nome da sua api>`
+
+### Erro no comandos de migração 
+Delete o arquivo db.sqlite3 e crie novamente o superuser e faça tente as migrações
