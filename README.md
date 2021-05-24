@@ -101,5 +101,16 @@ O saldo da carteira é o somatório de saldos investidos em cada um dos ativos
     ]
     ```
 
+### Criando superuser
+  `python3 manage.py createsuperuser`
+  exemplo: username:"sa" password:"sa123456" 
+
 ### Inicializar Servidor
   `python3 manage.py runserver`
+
+### Migrar configurações iniciais
+  `python3 manage.py migrate`
+
+### Comando para migrar os modelos
+  `python3 manage.py makemigrations`
+  `python3 manage.py migrate`
